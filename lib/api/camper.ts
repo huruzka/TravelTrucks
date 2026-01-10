@@ -3,35 +3,43 @@ import { Camper } from "@/types/camper";
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL!;
 
 export async function fetchCampers(): Promise<Camper[]> {
-  try {
-    const response = await fetch(`${BASE_URL}/campers`);
+  const response = await fetch(`${BASE_URL}/campers`);
+  const data = await response.json();
 
-    if (!response.ok) {
-      console.error("Fetch campers failed:", response.status);
-      return [];
-    }
+  return data.items.map((item: any): Camper => ({
+    id: item.id,
+    name: item.name,
+    price: item.price,
+    rating: item.rating,
+    location: item.location,
+    description: item.description,
 
-    return await response.json();
-  } catch (error) {
-    console.error("Fetch campers error:", error);
-    return [];
-  }
-}
+    // ⬇️ НОРМАЛІЗАЦІЯ FEATURES
+    features: {
+      transmission: item.transmission,
+      engine: item.engine,
+      AC: item.AC,
+      bathroom: item.bathroom,
+      kitchen: item.kitchen,
+      TV: item.TV,
+      radio: item.radio,
+      refrigerator: item.refrigerator,
+      microwave: item.microwave,
+      gas: item.gas,
+      water: item.water,
+    },
 
-export async function fetchCamperById(
-  id: string
-): Promise<Camper | null> {
-  try {
-    const response = await fetch(`${BASE_URL}/campers/${id}`);
+    // ⬇️ НОРМАЛІЗАЦІЯ DETAILS
+    details: {
+      form: item.form,
+      length: item.length,
+      width: item.width,
+      height: item.height,
+      tank: item.tank,
+      consumption: item.consumption,
+    },
 
-    if (!response.ok) {
-      console.error("Fetch camper failed:", response.status);
-      return null;
-    }
-
-    return await response.json();
-  } catch (error) {
-    console.error("Fetch camper error:", error);
-    return null;
-  }
+    gallery: item.gallery,
+    reviews: item.reviews,
+  }));
 }
