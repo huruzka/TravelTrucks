@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { fetchCampers } from "@/lib/api/camper";
 import CamperCard from "@/components/CamperCard/CamperCard";
 import type { Camper } from "@/types/camper";
+import FiltersSidebar from "@/components/FiltersSidebar/FiltersSidebar";
 
 export default function CatalogPage() {
   const [campers, setCampers] = useState<Camper[]>([]);
@@ -28,25 +29,12 @@ export default function CatalogPage() {
   if (loading) {
     return (
       <main className="container">
-        <h1>Catalog</h1>
         <p>Loading campers...</p>
       </main>
     );
   }
-
-  if (error) {
-    return (
-      <main className="container">
-        <h1>Catalog</h1>
-        <p>{error}</p>
-      </main>
-    );
-  }
-
   return (
     <main className="container">
-      <h1>Catalog</h1>
-
       {campers.length === 0 ? (
         <p>No campers available.</p>
       ) : (
@@ -61,6 +49,7 @@ export default function CatalogPage() {
         >
           {campers.map((camper) => (
             <li key={camper.id}>
+              <FiltersSidebar  />
               <CamperCard camper={camper} />
             </li>
           ))}

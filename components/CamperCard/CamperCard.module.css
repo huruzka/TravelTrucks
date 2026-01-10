@@ -110,3 +110,8 @@
 .button:hover {
     background-color: #d13b3b;
 }
+.icon{
+    width: 20px;
+        height: 20px;
+    fill: #101828;
+}

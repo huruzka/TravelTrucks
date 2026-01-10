@@ -57,27 +57,52 @@ export default function CamperCard({ camper }: Props) {
         {/* FEATURES */}
         <ul className={styles.features}>
           {features.transmission && (
-            <li>
+            <li className={styles.featureItem}>
+              <svg className={styles.icon} width={20} height={20}>
+        <use href="/symbol-defs.svg#icon-diagram" />
+              </svg>
+              <span>
               {features.transmission === "automatic"
                 ? "Automatic"
-                : "Manual"}
+                  : "Manual"}
+                </span>
             </li>
           )}
 
           {features.engine && (
-            <li>
+            <li className={styles.featureItem}>
+              <svg className={styles.icon} width={20} height={20}>
+        <use href="/symbol-defs.svg#icon-fuel-pump-1" />
+              </svg>
+              <span>
               {features.engine === "petrol"
                 ? "Petrol"
                 : features.engine === "diesel"
                 ? "Diesel"
-                : "Hybrid"}
+                    : "Hybrid"}
+                </span>
             </li>
           )}
 
-          {features.kitchen && <li>Kitchen</li>}
-          {features.AC && <li>AC</li>}
-          {features.bathroom && <li>Bathroom</li>}
-          {features.TV && <li>TV</li>}
+          {features.kitchen && <li className={styles.featureItem}>
+            <svg className={styles.icon} width={20} height={20}>
+        <use href="/symbol-defs.svg#icon-cup-hot" />
+              </svg>
+              <span>Kitchen</span></li>}
+          {features.AC && <li className={styles.featureItem}>
+            <svg className={styles.icon} width={20} height={20}>
+        <use href="/symbol-defs.svg#icon-wind" />
+              </svg>
+              <span>AC</span></li>}
+          {features.bathroom && <li className={styles.featureItem}><svg className={styles.icon} width={20} height={20}>
+        <use href="/symbol-defs.svg#icon-ph_shower" />
+              </svg>
+              <span>Bathroom</span></li>}
+          {features.TV && <li className={styles.featureItem}>
+            <svg className={styles.icon} width={20} height={20}>
+        <use href="/symbol-defs.svg#icon-tv" />
+              </svg>
+              <span>TV</span></li>}
         </ul>
 
         {/* BUTTON */}
