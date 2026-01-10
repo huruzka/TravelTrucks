@@ -1,0 +1,64 @@
+@import "modern-normalize";
+
+:root {
+  --background: #ffffff;
+}
+
+
+html,
+body {
+  background: var(--background);
+  font-family:
+    var(--font-inter),
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    "Helvetica Neue",
+    Arial,
+    sans-serif;
+    font-family: "Inter", sans-serif;
+
+  color: #101828;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+  letter-spacing: 0;
+
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+ul{
+  text-decoration: none;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+}
+button {
+  transition:
+    color 0.3s ease,
+    background-color 0.3s ease;
+}
+.container {
+      max-width: 1440px;
+      padding: 0 64px;
+      margin: 0 auto;
+    }
