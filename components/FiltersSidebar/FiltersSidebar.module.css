@@ -1,0 +1,115 @@
+.sidebar {
+    width: 360px;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+.block {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.label {
+    font-size: 16px;
+    color: #475467;
+}
+
+.location {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 14px;
+    background-color: #F7F7F7;
+    border-radius: 8px;
+    color: #6C717B;
+}
+.location:focus-within {
+    color: #101828;
+}
+.location:hover {
+    color: #101828;
+}
+
+.filterIconLocation{
+    fill:#6C717B;
+}
+.filter{
+    color: #475467;
+    font-size: 16px;
+}
+.location input {
+    border: none;
+    outline: none;
+    font-size: 16px;
+    flex: 1;
+    background-color: #F7F7F7;
+}
+
+.title {
+    font-size: 20px;
+    font-weight: 600;
+    padding-bottom: 24px;
+    border-bottom: 1px solid #eaecf0;
+    margin-bottom: 24px;
+}
+
+/* GRID */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
+
+/* BUTTONS */
+.grid button {
+    height: 96px;
+    border-radius: 12px;
+    border: 1px solid #d0d5dd;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.grid button svg {
+    fill: #101828;
+
+}
+
+/* hover */
+.grid button:hover {
+    border-color: #e44848;
+}
+
+/* active (як AC на макеті) */
+.active {
+    border-color: #e44848;
+    background: #fff5f5;
+}
+
+
+/* SEARCH */
+.search {
+    margin-top: 40px;
+    width: 166px;
+    height: 56px;
+    border-radius: 999px;
+    border: none;
+    background: #e44848;
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+}
+.multiline {
+    text-align: center;
+    line-height: 1.2;
+}

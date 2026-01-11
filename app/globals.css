@@ -62,3 +62,41 @@ button {
       padding: 0 64px;
       margin: 0 auto;
     }
+
+        .catalogLayout {
+          padding-top: 48px;
+          padding-bottom: 52px;
+          display: flex;
+          gap: 64px;
+          align-items: flex-start;
+        }
+    
+        .campersList {
+          display: flex;
+          flex-direction: column;
+          gap: 32px;
+          list-style: none;
+          padding: 0;
+          margin: 0;
+          flex: 1;
+          align-items: center;
+        }
+
+.loadMore {
+  height: 56px;
+  width: 145px;
+  padding: 12px 24px;
+  background-color: #ffffff;
+  color: #101828;
+  border-radius: 200px;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  border: 1px solid #DADDE1;
+  transition: background-color 0.2s ease;
+  cursor: pointer;
+}
+.loadMore:hover,
+.loadMore:focus{
+
+}

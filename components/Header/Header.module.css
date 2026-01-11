@@ -22,3 +22,7 @@
 .headerlink:focus{
     color: #D84343;
 }
+
+.active{
+    color: #D84343;
+}

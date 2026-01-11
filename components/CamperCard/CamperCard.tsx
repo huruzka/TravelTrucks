@@ -44,12 +44,16 @@ export default function CamperCard({ camper }: Props) {
         </div>
 
         {/* META */}
-        <div className={styles.meta}><svg className={styles.icon} width={25} height={24}>
+        <div className={styles.meta}>
+          <svg className={styles.iconStar} width={16} height={16}>
         <use href="/symbol-defs.svg#icon-Property-1Pressed" />
               </svg>
           <span className={styles.rating}>
            {camper.rating } ({reviews.length} Reviews)
           </span>
+          <svg className={styles.iconMap} width={16} height={16}>
+        <use href="/symbol-defs.svg#icon-Map" />
+              </svg>
           <span className={styles.location}>{camper.location}</span>
         </div>
 
@@ -98,7 +102,8 @@ export default function CamperCard({ camper }: Props) {
         <use href="/symbol-defs.svg#icon-wind" />
               </svg>
               <span>AC</span></li>}
-          {features.bathroom && <li className={styles.featureItem}><svg className={styles.icon} width={20} height={20}>
+          {features.bathroom && <li className={styles.featureItem}>
+            <svg className={styles.icon} width={20} height={20}>
         <use href="/symbol-defs.svg#icon-ph_shower" />
               </svg>
               <span>Bathroom</span></li>}

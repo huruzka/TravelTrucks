@@ -3,8 +3,8 @@
 import { useEffect, useState } from "react";
 import { fetchCampers } from "@/lib/api/camper";
 import CamperCard from "@/components/CamperCard/CamperCard";
-import type { Camper } from "@/types/camper";
 import FiltersSidebar from "@/components/FiltersSidebar/FiltersSidebar";
+import type { Camper } from "@/types/camper";
 
 export default function CatalogPage() {
   const [campers, setCampers] = useState<Camper[]>([]);
@@ -16,7 +16,7 @@ export default function CatalogPage() {
       try {
         const data = await fetchCampers();
         setCampers(data);
-      } catch (err) {
+      } catch {
         setError("Failed to load campers");
       } finally {
         setLoading(false);
@@ -33,28 +33,35 @@ export default function CatalogPage() {
       </main>
     );
   }
+
+  if (error) {
+    return (
+      <main className="container">
+        <p>{error}</p>
+      </main>
+    );
+  }
+
   return (
     <main className="container">
-      {campers.length === 0 ? (
-        <p>No campers available.</p>
-      ) : (
-        <ul
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            gap: "32px",
-            listStyle: "none",
-            padding: 0,
-          }}
-        >
+      <div className="catalogLayout">
+        {/* LEFT */}
+        <FiltersSidebar />
+
+        {/* RIGHT */}
+        <ul className="campersList">
           {campers.map((camper) => (
             <li key={camper.id}>
-              <FiltersSidebar  />
               <CamperCard camper={camper} />
             </li>
+            
           ))}
+          <li>
+                <button className="loadMore">Load more</button>
+            </li>
         </ul>
-      )}
+        
+      </div>
     </main>
   );
 }
