@@ -36,17 +36,21 @@ export default function CamperCard({ camper }: Props) {
               className={styles.favorite}
               aria-label="Add to favorites"
             >
-              ♡
+             <svg className={styles.icon} width={25} height={24}>
+        <use href="/symbol-defs.svg#icon-heart" />
+              </svg>
             </button>
           </div>
         </div>
 
         {/* META */}
-        <div className={styles.meta}>
-          <span>
-            ⭐ {camper.rating} ({reviews.length} Reviews)
+        <div className={styles.meta}><svg className={styles.icon} width={25} height={24}>
+        <use href="/symbol-defs.svg#icon-Property-1Pressed" />
+              </svg>
+          <span className={styles.rating}>
+           {camper.rating } ({reviews.length} Reviews)
           </span>
-          <span>{camper.location}</span>
+          <span className={styles.location}>{camper.location}</span>
         </div>
 
         {/* DESCRIPTION */}
