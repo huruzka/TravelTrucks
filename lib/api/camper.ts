@@ -2,8 +2,18 @@ import { Camper } from "@/types/camper";
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL!;
 
-export async function fetchCampers(): Promise<Camper[]> {
-  const response = await fetch(`${BASE_URL}/campers`);
+export async function fetchCampers(
+  page = 1,
+  limit = 4
+): Promise<Camper[]> {
+  const response = await fetch(
+    `${BASE_URL}/campers?page=${page}&limit=${limit}`
+  );
+
+  if (!response.ok) {
+    throw new Error("Failed to fetch campers");
+  }
+
   const data = await response.json();
 
   return data.items.map((item: any): Camper => ({
