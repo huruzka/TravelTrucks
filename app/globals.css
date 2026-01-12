@@ -98,5 +98,5 @@ button {
 }
 .loadMore:hover,
 .loadMore:focus{
-
+  border-color: #e44848;
 }
