@@ -1,13 +1,13 @@
-export type CamperFilters = {
-  location?: string;
-  form?: "alcove" | "panelTruck" | "fullyIntegrated";
-  AC?: boolean;
-  kitchen?: boolean;
-  bathroom?: boolean;
-  TV?: boolean;
-  radio?: boolean;
-  refrigerator?: boolean;
-  microwave?: boolean;
-  gas?: boolean;
-  water?: boolean;
+export type EquipmentFilters = {
+  AC: boolean;
+  kitchen: boolean;
+  bathroom: boolean;
+  TV: boolean;
+};
+
+export type Filters = {
+  location: string;
+  equipment: EquipmentFilters;
+  transmission: "automatic" | "manual" | null;
+  vehicleType: "van" | "fullyIntegrated" | "alcove" | null;
 };
