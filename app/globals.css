@@ -111,7 +111,10 @@ button {
 .catalogContent {
   min-height: 400px;
 }
-
+.loadMoreWrapper {
+  display: flex;
+  justify-content: center;
+}
 .emptyState {
   display: flex;
   flex-direction: column;
