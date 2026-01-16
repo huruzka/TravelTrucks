@@ -165,25 +165,49 @@ export default function CatalogPage() {
         />
 
         {/* RIGHT */}
-        <ul className="campersList">
-          {campers.map((camper) => (
-            <li key={camper.id}>
-              <CamperCard camper={camper} />
-            </li>
-          ))}
+<div className="catalogContent">
+  {campers.length === 0 && !loading ? (
+    <div className="emptyState">
+      <p className="emptyTitle">Nothing found</p>
+      <p className="emptyText">
+        Try adjusting your filters or clear them to see all campers.
+      </p>
 
-          {hasMore && (
-            <li className="loadMoreWrapper">
-              <button
-                className="loadMore"
-                onClick={handleLoadMore}
-                disabled={loading}
-              >
-                {loading ? "Loading..." : "Load more"}
-              </button>
-            </li>
-          )}
-        </ul>
+      <button
+        className="clearFilters"
+        onClick={() => {
+          setFilters(INITIAL_FILTERS);
+          setPage(1);
+          setHasMore(true);
+          router.push("/catalog");
+          loadCampers(1, INITIAL_FILTERS, true);
+        }}
+      >
+        Clear filters
+      </button>
+    </div>
+  ) : (
+    <ul className="campersList">
+      {campers.map((camper) => (
+        <li key={camper.id}>
+          <CamperCard camper={camper} />
+        </li>
+      ))}
+
+      {hasMore && (
+        <li className="loadMoreWrapper">
+          <button
+            className="loadMore"
+            onClick={handleLoadMore}
+            disabled={loading}
+          >
+            {loading ? "Loading..." : "Load more"}
+          </button>
+        </li>
+      )}
+    </ul>
+  )}
+</div>
       </div>
     </main>
   );
