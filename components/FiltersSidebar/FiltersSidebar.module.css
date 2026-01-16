@@ -90,9 +90,8 @@
 }
 
 /* active (як AC на макеті) */
-.active {
+.grid button.active {
     border-color: #e44848;
-    background: #fff5f5;
 }
 
 

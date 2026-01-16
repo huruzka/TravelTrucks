@@ -1,14 +1,21 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useRouter} from "next/navigation";
+
+
 import { fetchCampers } from "@/lib/api/camper";
 import CamperCard from "@/components/CamperCard/CamperCard";
 import FiltersSidebar from "@/components/FiltersSidebar/FiltersSidebar";
+
 import type { Camper } from "@/types/camper";
 import type { Filters } from "@/types/filters";
 
 const LIMIT = 4;
 
+// =======================
+// INITIAL FILTERS
+// =======================
 const INITIAL_FILTERS: Filters = {
   location: "",
   equipment: {
@@ -21,17 +28,52 @@ const INITIAL_FILTERS: Filters = {
   vehicleType: null,
 };
 
+// =======================
+// FILTERS → URL
+// =======================
+function buildSearchParams(filters: Filters, page: number) {
+  const params = new URLSearchParams();
+
+  params.set("page", String(page));
+
+  if (filters.location.trim()) {
+    params.set("location", filters.location.trim());
+  }
+
+  Object.entries(filters.equipment).forEach(([key, value]) => {
+    if (value) params.set(key, "true");
+  });
+
+  if (filters.transmission) {
+    params.set("transmission", filters.transmission);
+  }
+
+  if (filters.vehicleType) {
+    params.set("vehicleType", filters.vehicleType);
+  }
+
+  return params.toString();
+}
+
+// =======================
+// PAGE
+// =======================
 export default function CatalogPage() {
+  const router = useRouter();
+
   const [campers, setCampers] = useState<Camper[]>([]);
   const [filters, setFilters] = useState<Filters>(INITIAL_FILTERS);
-
   const [page, setPage] = useState(1);
+
+
   const [hasMore, setHasMore] = useState(true);
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  // ===== LOAD CAMPERS =====
+  // =======================
+  // LOAD CAMPERS
+  // =======================
   const loadCampers = async (
     pageToLoad: number,
     currentFilters: Filters,
@@ -61,27 +103,46 @@ export default function CatalogPage() {
     }
   };
 
-  // ===== INITIAL LOAD =====
+  // =======================
+  // INITIAL LOAD (FROM URL)
+  // =======================
   useEffect(() => {
-    loadCampers(1, filters, true);
+    loadCampers(page, filters, true);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // ===== SEARCH =====
+  // =======================
+  // SEARCH (FILTERS APPLY)
+  // =======================
   const handleSearch = () => {
-    setPage(1);
+    const newPage = 1;
+
+    setPage(newPage);
     setHasMore(true);
-    loadCampers(1, filters, true);
+
+    const query = buildSearchParams(filters, newPage);
+    router.push(`/catalog?${query}`);
+
+    loadCampers(newPage, filters, true);
   };
 
-  // ===== LOAD MORE =====
+  // =======================
+  // LOAD MORE
+  // =======================
   const handleLoadMore = () => {
     const nextPage = page + 1;
+
     setPage(nextPage);
+
+    const query = buildSearchParams(filters, nextPage);
+    router.push(`/catalog?${query}`);
+
     loadCampers(nextPage, filters);
   };
 
-  // ===== ERROR =====
+  // =======================
+  // ERROR
+  // =======================
   if (error) {
     return (
       <main className="container">
@@ -90,18 +151,20 @@ export default function CatalogPage() {
     );
   }
 
-  // ===== RENDER =====
+  // =======================
+  // RENDER
+  // =======================
   return (
     <main className="container">
       <div className="catalogLayout">
-        {/* LEFT SIDEBAR */}
+        {/* LEFT */}
         <FiltersSidebar
           filters={filters}
           onChange={setFilters}
           onSearch={handleSearch}
         />
 
-        {/* RIGHT CONTENT */}
+        {/* RIGHT */}
         <ul className="campersList">
           {campers.map((camper) => (
             <li key={camper.id}>
