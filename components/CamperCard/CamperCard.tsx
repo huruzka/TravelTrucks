@@ -116,7 +116,7 @@ export default function CamperCard({ camper }: Props) {
 
         {/* BUTTON */}
         <Link
-          href={`/campers/${camper.id}`}
+          href={`/catalog/${camper.id}`}
           className={styles.button}
         >
           Show more

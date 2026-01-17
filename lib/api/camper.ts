@@ -63,6 +63,56 @@ export async function fetchCampers({
 }
 
   function mapCamper(item: any): Camper {
+    return {
+    id: item.id,
+    name: item.name,
+    price: item.price,
+    rating: item.rating,
+    location: item.location,
+    description: item.description,
+
+    features: {
+      transmission: item.transmission,
+      engine: item.engine,
+      AC: item.AC,
+      bathroom: item.bathroom,
+      kitchen: item.kitchen,
+      TV: item.TV,
+      radio: item.radio,
+      refrigerator: item.refrigerator,
+      microwave: item.microwave,
+      gas: item.gas,
+      water: item.water,
+    },
+
+    details: {
+      form: item.form,
+      length: item.length,
+      width: item.width,
+      height: item.height,
+      tank: item.tank,
+      consumption: item.consumption,
+    },
+
+    gallery: item.gallery,
+    reviews: item.reviews,
+  };
+}
+
+
+export async function fetchCamperById(
+  id: string
+): Promise<Camper | null> {
+  const response = await fetch(`${BASE_URL}/campers/${id}`, {
+    cache: "no-store",
+  });
+
+  if (!response.ok) {
+    return null;
+  }
+
+  const item = await response.json();
+
   return {
     id: item.id,
     name: item.name,
