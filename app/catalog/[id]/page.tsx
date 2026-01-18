@@ -11,7 +11,7 @@ type Props = {
 export default async function CamperDetailsPage({
   params,
 }: Props) {
-  const { id } = await params; // ⬅️ КЛЮЧОВИЙ РЯДОК
+  const { id } = await params; 
 
   const camper = await fetchCamperById(id);
 
@@ -23,11 +23,19 @@ export default async function CamperDetailsPage({
    <main className="container">
       {/* TOP INFO */}
           <section className={styles.camperHeader}>
-        <h1>{camper.name}</h1>
+        <h2 className="styles.title">{camper.name}</h2>
 
         <div className={styles.meta}>
-          ⭐ {camper.rating} ({camper.reviews.length} Reviews)
-          <span>{camper.location}</span>
+          <svg className={styles.iconStar} width={16} height={16}>
+        <use href="/symbol-defs.svg#icon-Property-1Pressed" />
+              </svg>
+          <span className={styles.rating}>
+           {camper.rating } ({camper.reviews.length} Reviews)
+          </span>
+          <svg className={styles.iconMap} width={16} height={16}>
+        <use href="/symbol-defs.svg#icon-Map" />
+              </svg>
+          <span className={styles.location}>{camper.location}</span>
         </div>
 
         <p className={styles.price}>€{camper.price.toFixed(2)}</p>
@@ -57,24 +65,66 @@ export default async function CamperDetailsPage({
               <div className={styles.features}>
             {/* badges */}
                   <ul className={styles.featuresList}>
-              {camper.features.transmission && <li>Automatic</li>}
-              {camper.features.AC && <li>AC</li>}
-              {camper.features.engine && <li>{camper.features.engine}</li>}
-              {camper.features.kitchen && <li>Kitchen</li>}
-              {camper.features.radio && <li>Radio</li>}
+              {camper.features.transmission &&
+                <li>
+                  <svg className={styles.icon} width={20} height={20}>
+        <use href="/symbol-defs.svg#icon-diagram" />
+              </svg>
+                  Automatic</li>}
+              {camper.features.AC &&
+                <li>
+                   <svg className={styles.icon} width={20} height={20}>
+        <use href="/symbol-defs.svg#icon-wind" />
+              </svg>
+                  AC</li>}
+              {camper.features.engine &&
+                <li>
+                  <svg className={styles.icon} width={20} height={20}>
+        <use href="/symbol-defs.svg#icon-fuel-pump-1" /></svg>
+                  {camper.features.engine}</li>}
+              {camper.features.kitchen &&
+                <li>
+                  <svg className={styles.icon} width={20} height={20}>
+        <use href="/symbol-defs.svg#icon-cup-hot" />
+                  </svg>
+                  Kitchen</li>}
+              {camper.features.radio &&
+                <li>
+                  <svg className={styles.icon} width={20} height={20}>
+        <use href="/symbol-defs.svg#icon-ui-radios" />
+                  </svg>
+                  Radio</li>}
             </ul>
 
             {/* vehicle details */}
                   <div className={styles.vehicleDetails}>
-              <h3>Vehicle details</h3>
-              <ul>
-                <li>Form: {camper.details.form}</li>
-                <li>Length: {camper.details.length}</li>
-                <li>Width: {camper.details.width}</li>
-                <li>Height: {camper.details.height}</li>
-                <li>Tank: {camper.details.tank}</li>
-                <li>Consumption: {camper.details.consumption}</li>
-              </ul>
+              <h3 className={styles.vehicleTitle}>Vehicle details</h3>
+              <ul className={styles.vehicleList}>
+  <li>
+    <span>Form</span>
+    <span>{camper.details.form}</span>
+  </li>
+  <li>
+    <span>Length</span>
+    <span>{camper.details.length}</span>
+  </li>
+  <li>
+    <span>Width</span>
+    <span>{camper.details.width}</span>
+  </li>
+  <li>
+    <span>Height</span>
+    <span>{camper.details.height}</span>
+  </li>
+  <li>
+    <span>Tank</span>
+    <span>{camper.details.tank}</span>
+  </li>
+  <li>
+    <span>Consumption</span>
+    <span>{camper.details.consumption}</span>
+  </li>
+</ul>
             </div>
           </div>
         </div>
