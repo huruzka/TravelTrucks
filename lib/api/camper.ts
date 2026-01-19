@@ -100,18 +100,14 @@ export async function fetchCampers({
 }
 
 
-export async function fetchCamperById(
-  id: string
-): Promise<Camper | null> {
-  const response = await fetch(`${BASE_URL}/campers/${id}`, {
+export async function fetchCamperById(id: string) {
+  const res = await fetch(`${BASE_URL}/campers/${id}`, {
     cache: "no-store",
   });
 
-  if (!response.ok) {
-    return null;
-  }
+  if (!res.ok) return null;
 
-  const item = await response.json();
+  const item = await res.json();
 
   return {
     id: item.id,

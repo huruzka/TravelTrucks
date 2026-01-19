@@ -133,7 +133,8 @@
     transition: background-color 0.2s ease;
 }
 
-.button:hover {
+.button:hover,
+.button:focus{
     background-color: #d13b3b;
 }
 .icon{

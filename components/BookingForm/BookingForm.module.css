@@ -1,0 +1,65 @@
+.booking {
+    width: 641px;
+    position: sticky;
+    padding: 44px 57px;
+    border: 1px solid #eaecf0;
+    border-radius: 12px;
+}
+
+.bookingTitle {
+    font-weight: 600;
+    font-size: 20px;
+    margin-bottom: 8px;
+}
+
+.bookingText {
+    font-size: 16px;
+    color: #6C717B;
+    margin-bottom: 24px;
+}
+
+.booking input {
+    width: 527px;
+    height: 60px;
+    background-color: #F7F7F7;
+    border-radius: 12px;
+    border: none;
+    margin-bottom: 14px;
+    padding: 18px;
+    font-size: 16px;
+}
+
+.booking textarea {
+    width: 527px;
+    min-height: 118px;
+    padding: 18px;
+    font-size: 16px;
+    margin-bottom: 24px;
+    border-radius: 12px;
+    background-color: #F7F7F7;
+    border: none;
+    resize: none;
+}
+
+.bookingFormButton {
+    width: 166px;
+    height: 56px;
+    padding: 12px 24px;
+    background-color: #e44848;
+    color: #ffffff;
+    border-radius: 200px;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    border: none;
+    transition: background-color 0.2s ease;
+    font-weight: 500;
+    font-size: 16px;
+    margin: 0 auto;
+    display: block;
+}
+
+.bookingFormButton:hover,
+.bookingFormButton:focus {
+    background-color: #d13b3b;
+}
