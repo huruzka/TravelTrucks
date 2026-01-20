@@ -3,6 +3,7 @@
 import Link from "next/link";
 import styles from "./CamperCard.module.css";
 import type { Camper } from "@/types/camper";
+import { useState, useEffect } from "react";
 
 type Props = {
   camper: Camper;
@@ -10,7 +11,28 @@ type Props = {
 
 export default function CamperCard({ camper }: Props) {
   const { features, gallery, reviews } = camper;
+  const [isFavorite, setIsFavorite] = useState(false);
 
+    // ⬇️ читаємо з localStorage при маунті
+  useEffect(() => {
+    const saved = localStorage.getItem(`favorite-${camper.id}`);
+    if (saved) {
+      setIsFavorite(JSON.parse(saved));
+    }
+  }, [camper.id]);
+
+  // ⬇️ записуємо при зміні
+  useEffect(() => {
+    localStorage.setItem(
+      `favorite-${camper.id}`,
+      JSON.stringify(isFavorite)
+    );
+  }, [isFavorite, camper.id]);
+
+
+  const toggleFavorite = () => {
+    setIsFavorite(prev => !prev);
+  };
   return (
     <article className={styles.card}>
       {/* IMAGE */}
@@ -35,8 +57,10 @@ export default function CamperCard({ camper }: Props) {
             <button
               className={styles.favorite}
               aria-label="Add to favorites"
+              onClick={toggleFavorite}
             >
-             <svg className={styles.icon} width={25} height={24}>
+              <svg className={`${styles.icon} ${isFavorite ? styles.iconActive : ""}`}
+                width={25} height={24}>
         <use href="/symbol-defs.svg#icon-heart" />
               </svg>
             </button>

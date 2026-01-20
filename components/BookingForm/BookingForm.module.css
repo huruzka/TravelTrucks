@@ -63,3 +63,9 @@
 .bookingFormButton:focus {
     background-color: #d13b3b;
 }
+
+.error {
+    color: #e44848;
+    font-size: 12px;
+    display: block;
+}

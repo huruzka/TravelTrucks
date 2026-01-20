@@ -64,6 +64,9 @@
     color: #101828;
 }
 
+.iconActive {
+    stroke: #E44848;
+}
 /* META */
 .meta {
     display: flex;
