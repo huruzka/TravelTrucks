@@ -9,7 +9,7 @@ type Props = {
 };
 
 export default async function CamperDetailsPage({ params }: Props) {
-  const { id } = await params; // 🔑 КЛЮЧОВИЙ РЯДОК
+  const { id } = await params; 
 
   const camper = await fetchCamperById(id);
 

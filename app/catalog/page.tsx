@@ -129,17 +129,17 @@ export default function CatalogPage() {
   // =======================
   // LOAD MORE
   // =======================
-  const handleLoadMore = () => {
-    const nextPage = page + 1;
+const handleLoadMore = () => {
+  const nextPage = page + 1;
 
-    setPage(nextPage);
+  setPage(nextPage);
 
-    const query = buildSearchParams(filters, nextPage);
-    router.push(`/catalog?${query}`);
+  const query = buildSearchParams(filters, nextPage);
 
-    loadCampers(nextPage, filters);
-  };
+  router.push(`/catalog?${query}`, { scroll: false });
 
+  loadCampers(nextPage, filters);
+};
   // =======================
   // ERROR
   // =======================
