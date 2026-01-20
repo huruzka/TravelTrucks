@@ -9,6 +9,11 @@ type FetchCampersParams = {
   filters: Filters;
 };
 
+type FetchCampersResult = {
+  items: Camper[];
+  total: number;
+};
+
 export async function fetchCampers({
   page,
   limit,

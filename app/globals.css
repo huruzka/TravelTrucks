@@ -88,6 +88,8 @@ button {
 .sidebar {
   position: sticky;
     top: 24px;
+    width: 260px;
+      flex-shrink: 0
 }
 .loadMore {
   height: 56px;
@@ -109,7 +111,8 @@ button {
 }
 
 .catalogContent {
-  min-height: 400px;
+  flex: 1;
+    min-height: 400px;
 }
 .loadMoreWrapper {
   display: flex;
