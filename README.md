@@ -30,8 +30,9 @@ Users can filter campers by features, read reviews, add them to favorites, and b
 
 ---
 
-№№ 🧭 Project Structure
+## 🧭 Project Structure
 
+```txt
 app/
  ├─ page.tsx        # Home page
  ├─ layout.tsx      # App layout with header
@@ -41,9 +42,9 @@ app/
  ├─ components/
  ├─ lib/
  │   └─ api/
- ├─ publick/
+ ├─ public/
  └─ types/
- 
+ ```
 ---
 
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
