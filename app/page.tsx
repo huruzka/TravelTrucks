@@ -5,7 +5,7 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Travel Trucks",
-  description: "Rent trcks for your rest",
+  description: "Rent truks for your rest",
 };
 
 export default function Home() {

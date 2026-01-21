@@ -14,6 +14,8 @@ export default function FiltersSidebar({
   onChange,
   onSearch,
 }: Props) {
+  const isAutomatic = filters.transmission === "automatic";
+
   return (
     <aside className={styles.sidebar}>
       {/* Location */}
@@ -33,154 +35,171 @@ export default function FiltersSidebar({
         </div>
       </div>
 
-      {/* Vehicle equipment */}
+      {/* Filters */}
       <div className={styles.block}>
         <p className={styles.filter}>Filters</p>
         <p className={styles.title}>Vehicle equipment</p>
 
-       <div className={styles.grid}>
-  <button
-    className={filters.equipment.AC ? styles.active : ""}
-    onClick={() =>
-      onChange({
-        ...filters,
-        equipment: {
-          ...filters.equipment,
-          AC: !filters.equipment.AC,
-        },
-      })
-    }
-  >
-    <svg className={styles.filterIcon} width={32} height={32}>
-      <use href="/symbol-defs.svg#icon-wind" />
-    </svg>
-    AC
-  </button>
+        <div className={styles.grid}>
+          {/* AC */}
+          <button
+            className={filters.equipment.AC ? styles.active : ""}
+            onClick={() =>
+              onChange({
+                ...filters,
+                equipment: {
+                  ...filters.equipment,
+                  AC: !filters.equipment.AC,
+                },
+              })
+            }
+          >
+            <svg className={styles.filterIcon} width={32} height={32}>
+              <use href="/symbol-defs.svg#icon-wind" />
+            </svg>
+            AC
+          </button>
 
-  <button
-    className={filters.equipment.kitchen ? styles.active : ""}
-    onClick={() =>
-      onChange({
-        ...filters,
-        equipment: {
-          ...filters.equipment,
-          kitchen: !filters.equipment.kitchen,
-        },
-      })
-    }
-  >
-    <svg className={styles.filterIcon} width={32} height={32}>
-      <use href="/symbol-defs.svg#icon-cup-hot" />
-    </svg>
-    Kitchen
-  </button>
+          {/* AUTOMATIC (maps to transmission) */}
+          <button
+            className={isAutomatic ? styles.active : ""}
+            onClick={() =>
+              onChange({
+                ...filters,
+                transmission: isAutomatic ? null : "automatic",
+              })
+            }
+          >
+            <svg className={styles.filterIcon} width={32} height={32}>
+              <use href="/symbol-defs.svg#icon-diagram" />
+            </svg>
+            Automatic
+          </button>
 
-  <button
-    className={filters.equipment.TV ? styles.active : ""}
-    onClick={() =>
-      onChange({
-        ...filters,
-        equipment: {
-          ...filters.equipment,
-          TV: !filters.equipment.TV,
-        },
-      })
-    }
-  >
-    <svg className={styles.filterIcon} width={32} height={32}>
-      <use href="/symbol-defs.svg#icon-tv" />
-    </svg>
-    TV
-  </button>
+          {/* KITCHEN */}
+          <button
+            className={filters.equipment.kitchen ? styles.active : ""}
+            onClick={() =>
+              onChange({
+                ...filters,
+                equipment: {
+                  ...filters.equipment,
+                  kitchen: !filters.equipment.kitchen,
+                },
+              })
+            }
+          >
+            <svg className={styles.filterIcon} width={32} height={32}>
+              <use href="/symbol-defs.svg#icon-cup-hot" />
+            </svg>
+            Kitchen
+          </button>
 
-  <button
-    className={filters.equipment.bathroom ? styles.active : ""}
-    onClick={() =>
-      onChange({
-        ...filters,
-        equipment: {
-          ...filters.equipment,
-          bathroom: !filters.equipment.bathroom,
-        },
-      })
-    }
-  >
-    <svg className={styles.filterIcon} width={32} height={32}>
-      <use href="/symbol-defs.svg#icon-ph_shower" />
-    </svg>
-    Bathroom
-  </button>
-</div>
+          {/* TV */}
+          <button
+            className={filters.equipment.TV ? styles.active : ""}
+            onClick={() =>
+              onChange({
+                ...filters,
+                equipment: {
+                  ...filters.equipment,
+                  TV: !filters.equipment.TV,
+                },
+              })
+            }
+          >
+            <svg className={styles.filterIcon} width={32} height={32}>
+              <use href="/symbol-defs.svg#icon-tv" />
+            </svg>
+            TV
+          </button>
+
+          {/* BATHROOM */}
+          <button
+            className={filters.equipment.bathroom ? styles.active : ""}
+            onClick={() =>
+              onChange({
+                ...filters,
+                equipment: {
+                  ...filters.equipment,
+                  bathroom: !filters.equipment.bathroom,
+                },
+              })
+            }
+          >
+            <svg className={styles.filterIcon} width={32} height={32}>
+              <use href="/symbol-defs.svg#icon-ph_shower" />
+            </svg>
+            Bathroom
+          </button>
+        </div>
       </div>
 
       {/* Vehicle type */}
-<div className={styles.block}>
-  <p className={styles.title}>Vehicle type</p>
+      <div className={styles.block}>
+        <p className={styles.title}>Vehicle type</p>
 
-  <div className={styles.grid}>
-    {/* VAN */}
-    <button
-      className={filters.vehicleType === "van" ? styles.active : ""}
-      onClick={() =>
-        onChange({
-          ...filters,
-          vehicleType:
-            filters.vehicleType === "van" ? null : "van",
-        })
-      }
-    >
-      <svg className={styles.filterIcon} width={32} height={32}>
-        <use href="/symbol-defs.svg#icon-bi_grid-1x2" />
-      </svg>
-      Van
-    </button>
+        <div className={styles.grid}>
+          <button
+            className={filters.vehicleType === "van" ? styles.active : ""}
+            onClick={() =>
+              onChange({
+                ...filters,
+                vehicleType:
+                  filters.vehicleType === "van" ? null : "van",
+              })
+            }
+          >
+            <svg className={styles.filterIcon} width={32} height={32}>
+              <use href="/symbol-defs.svg#icon-bi_grid-1x2" />
+            </svg>
+            Van
+          </button>
 
-    {/* FULLY INTEGRATED */}
-    <button
-      className={
-        filters.vehicleType === "fullyIntegrated"
-          ? styles.active
-          : ""
-      }
-      onClick={() =>
-        onChange({
-          ...filters,
-          vehicleType:
-            filters.vehicleType === "fullyIntegrated"
-              ? null
-              : "fullyIntegrated",
-        })
-      }
-    >
-      <svg className={styles.filterIcon} width={32} height={32}>
-        <use href="/symbol-defs.svg#icon-bi_grid" />
-      </svg>
-      <span className={styles.multiline}>
-        Fully
-        <br />
-        Integrated
-      </span>
-    </button>
+          <button
+            className={
+              filters.vehicleType === "fullyIntegrated"
+                ? styles.active
+                : ""
+            }
+            onClick={() =>
+              onChange({
+                ...filters,
+                vehicleType:
+                  filters.vehicleType === "fullyIntegrated"
+                    ? null
+                    : "fullyIntegrated",
+              })
+            }
+          >
+            <svg className={styles.filterIcon} width={32} height={32}>
+              <use href="/symbol-defs.svg#icon-bi_grid" />
+            </svg>
+            <span className={styles.multiline}>
+              Fully
+              <br />
+              Integrated
+            </span>
+          </button>
 
-    {/* ALCOVE */}
-    <button
-      className={filters.vehicleType === "alcove" ? styles.active : ""}
-      onClick={() =>
-        onChange({
-          ...filters,
-          vehicleType:
-            filters.vehicleType === "alcove" ? null : "alcove",
-        })
-      }
-    >
-      <svg className={styles.filterIcon} width={32} height={32}>
-        <use href="/symbol-defs.svg#icon-bi_grid-3x3-gap" />
-      </svg>
-      Alcove
-    </button>
-  </div>
+          <button
+            className={filters.vehicleType === "alcove" ? styles.active : ""}
+            onClick={() =>
+              onChange({
+                ...filters,
+                vehicleType:
+                  filters.vehicleType === "alcove" ? null : "alcove",
+              })
+            }
+          >
+            <svg className={styles.filterIcon} width={32} height={32}>
+              <use href="/symbol-defs.svg#icon-bi_grid-3x3-gap" />
+            </svg>
+            Alcove
+          </button>
+        </div>
       </div>
-      
+
       <button className={styles.search} onClick={onSearch}>
         Search
       </button>

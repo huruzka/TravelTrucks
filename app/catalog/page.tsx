@@ -1,8 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter} from "next/navigation";
-
+import { useRouter } from "next/navigation";
 
 import { fetchCampers } from "@/lib/api/camper";
 import CamperCard from "@/components/CamperCard/CamperCard";
@@ -29,7 +28,7 @@ const INITIAL_FILTERS: Filters = {
 };
 
 // =======================
-// FILTERS → URL
+// FILTERS → URL (vehicleType excluded)
 // =======================
 function buildSearchParams(filters: Filters, page: number) {
   const params = new URLSearchParams();
@@ -48,10 +47,7 @@ function buildSearchParams(filters: Filters, page: number) {
     params.set("transmission", filters.transmission);
   }
 
-  if (filters.vehicleType) {
-    params.set("vehicleType", filters.vehicleType);
-  }
-
+  // NOTE: vehicleType is filtered on the client side (MockAPI limitation)
   return params.toString();
 }
 
@@ -65,11 +61,9 @@ export default function CatalogPage() {
   const [filters, setFilters] = useState<Filters>(INITIAL_FILTERS);
   const [page, setPage] = useState(1);
 
-
   const [hasMore, setHasMore] = useState(true);
-
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [hasLoadedOnce, setHasLoadedOnce] = useState(false);
 
   // =======================
   // LOAD CAMPERS
@@ -81,7 +75,6 @@ export default function CatalogPage() {
   ) => {
     try {
       setLoading(true);
-      setError(null);
 
       const data = await fetchCampers({
         page: pageToLoad,
@@ -89,30 +82,42 @@ export default function CatalogPage() {
         filters: currentFilters,
       });
 
+      // FINAL DATA = what UI will render
+      let finalData = data;
+
+      // frontend filter for vehicleType
+      if (currentFilters.vehicleType) {
+        finalData = finalData.filter(
+          (camper) =>
+            camper.details.form === currentFilters.vehicleType
+        );
+      }
+
       setCampers((prev) =>
-        reset ? data : [...prev, ...data]
+        reset ? finalData : [...prev, ...finalData]
       );
 
-      if (data.length < LIMIT) {
-        setHasMore(false);
-      }
+      setHasMore(finalData.length === LIMIT);
+      setHasLoadedOnce(true);
     } catch {
-      setError("Failed to load campers");
+      // ❗ не показуємо error замість empty state
+      setCampers([]);
+      setHasLoadedOnce(true);
     } finally {
       setLoading(false);
     }
   };
 
   // =======================
-  // INITIAL LOAD (FROM URL)
+  // INITIAL LOAD
   // =======================
   useEffect(() => {
-    loadCampers(page, filters, true);
+    loadCampers(1, filters, true);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // =======================
-  // SEARCH (FILTERS APPLY)
+  // SEARCH
   // =======================
   const handleSearch = () => {
     const newPage = 1;
@@ -129,27 +134,16 @@ export default function CatalogPage() {
   // =======================
   // LOAD MORE
   // =======================
-const handleLoadMore = () => {
-  const nextPage = page + 1;
+  const handleLoadMore = () => {
+    const nextPage = page + 1;
 
-  setPage(nextPage);
+    setPage(nextPage);
 
-  const query = buildSearchParams(filters, nextPage);
+    const query = buildSearchParams(filters, nextPage);
+    router.push(`/catalog?${query}`, { scroll: false });
 
-  router.push(`/catalog?${query}`, { scroll: false });
-
-  loadCampers(nextPage, filters);
-};
-  // =======================
-  // ERROR
-  // =======================
-  if (error) {
-    return (
-      <main className="container">
-        <p>{error}</p>
-      </main>
-    );
-  }
+    loadCampers(nextPage, filters);
+  };
 
   // =======================
   // RENDER
@@ -165,59 +159,58 @@ const handleLoadMore = () => {
         />
 
         {/* RIGHT */}
-<div className="catalogContent">
-  <ul className="campersList">
-    {/* CAMPERS */}
-    {campers.map((camper) => (
-      <li key={camper.id}>
-        <CamperCard camper={camper} />
-      </li>
-    ))}
+        <div className="catalogContent">
+          <ul className="campersList">
+            {/* CAMPERS */}
+            {campers.map((camper) => (
+              <li key={camper.id}>
+                <CamperCard camper={camper} />
+              </li>
+            ))}
 
-    {/* LOADING */}
-    {loading && (
-      <li className="loadMoreWrapper">
-        <span>Loading...</span>
-      </li>
-    )}
+            {/* LOADING */}
+            {loading && (
+              <li className="loadMoreWrapper">
+                <span>Loading...</span>
+              </li>
+            )}
 
-    {/* EMPTY STATE */}
-    {!loading && campers.length === 0 && (
-      <li className="emptyState">
-        <p className="emptyTitle">Nothing found</p>
-        <p className="emptyText">
-          Try adjusting your filters or clear them to see all campers.
-        </p>
+            {/* EMPTY STATE */}
+            {!loading && hasLoadedOnce && campers.length === 0 && (
+              <li className="emptyState">
+                <p className="emptyTitle">Nothing found</p>
+                <p className="emptyText">
+                  Try adjusting your filters or clear them to see all campers.
+                </p>
 
-        <button
-          className="clearFilters"
-          onClick={() => {
-            setFilters(INITIAL_FILTERS);
-            setPage(1);
-            setHasMore(true);
-            router.push("/catalog");
-            loadCampers(1, INITIAL_FILTERS, true);
-          }}
-        >
-          Clear filters
-        </button>
-      </li>
-    )}
+                <button
+                  className="clearFilters"
+                  onClick={() => {
+                    setFilters(INITIAL_FILTERS);
+                    setPage(1);
+                    setHasMore(true);
+                    router.push("/catalog");
+                    loadCampers(1, INITIAL_FILTERS, true);
+                  }}
+                >
+                  Clear filters
+                </button>
+              </li>
+            )}
 
-    {/* LOAD MORE */}
-    {!loading && hasMore && campers.length > 0 && (
-      <li className="loadMoreWrapper">
-        <button
-          className="loadMore"
-          onClick={handleLoadMore}
-          disabled={loading}
-        >
-          Load more
-        </button>
-      </li>
-    )}
-  </ul>
-</div>
+            {/* LOAD MORE */}
+            {!loading && hasMore && campers.length > 0 && (
+              <li className="loadMoreWrapper">
+                <button
+                  className="loadMore"
+                  onClick={handleLoadMore}
+                >
+                  Load more
+                </button>
+              </li>
+            )}
+          </ul>
+        </div>
       </div>
     </main>
   );
