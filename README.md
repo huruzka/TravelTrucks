@@ -1,3 +1,51 @@
+# 🚐 Travel Trucks app.
+Travel Trucks is a desktop application that helps users rent camper trucks for their trips.
+Users can filter campers by features, read reviews, add them to favorites, and book a camper using a simple booking form.
+
+---
+
+## ✨ Features
+
+- Camper catalog with pagination (“Load more”)
+- Advanced filters (location, equipment, transmission, vehicle type)
+- Sticky filters sidebar for better UX
+- Detailed camper pages with gallery and reviews
+- Add campers to favorites (saved in localStorage)
+- Booking form with validation and date picker
+- Custom calendar with disabled past dates
+- Toast notifications on successful booking
+- Empty state for no search results
+- Responsive desktop layout
+
+---
+
+## 🛠️ Tech Stack
+
+- **Next.js** (App Router)
+- **React**
+- **TypeScript**
+- **CSS Modules**
+- **react-hot-toast**
+- **REST API**
+
+---
+
+№№ 🧭 Project Structure
+
+app/
+ ├─ page.tsx        # Home page
+ ├─ layout.tsx      # App layout with header
+ ├─ catalog/
+ │   ├─ page.tsx    # Catalog page
+ │   └─ [id]/       # Camper details page
+ ├─ components/
+ ├─ lib/
+ │   └─ api/
+ ├─ publick/
+ └─ types/
+ 
+---
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
@@ -16,21 +64,31 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## env
+NEXT_PUBLIC_API_URL=your_api_url_here
 
 ## Deploy on Vercel
 
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+## 📸 Screenshots
+
+<img width="1229" height="728" alt="Home page" src="https://github.com/user-attachments/assets/ff24cb8d-62c9-49ff-9f68-8c0362cc4494" />
+
+<img width="1229" height="790" alt="Catalog page" src="https://github.com/user-attachments/assets/5e4fe8e4-50d8-440f-8bd2-e433c2a9e82e" />
+
+<img width="566" height="530" alt="Details page_booking form" src="https://github.com/user-attachments/assets/4763da3a-437c-4d01-a81e-cb28ce73c099" />
+
+<img width="562" height="624" alt="Details page_features" src="https://github.com/user-attachments/assets/0d3fa746-2102-4eeb-b9c0-6b019c08eb7a" />
+
+<img width="549" height="313" alt="Details page_reviews" src="https://github.com/user-attachments/assets/23c0443e-b8d7-4c0d-b85f-b4911a53b68d" />
+
+---
+
+## 👩‍💻 Author
+
+Created by Maryna Prushak
+Fullstack Developer
+
